@@ -3,6 +3,8 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 
 from models import db, Message
+from routes.messages import messages_bp
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -13,6 +15,7 @@ CORS(app)
 migrate = Migrate(app, db)
 
 db.init_app(app)
+app.register_blueprint(messages_bp)
 
 @app.route('/messages')
 def messages():
